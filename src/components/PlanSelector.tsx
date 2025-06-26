@@ -1,4 +1,4 @@
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { motion } from 'framer-motion'
 
 type Props = { premium: boolean; onChange: (p: boolean) => void }
@@ -6,16 +6,17 @@ export function PlanSelector({ premium, onChange }: Props) {
   return (
     <div className="mb-4">
       <p className="block text-sm font-medium mb-2">Plan Type</p>
-      <RadioGroup
+      <ToggleGroup
+        type="single"
         value={premium ? 'premium' : 'standard'}
         onValueChange={val => onChange(val === 'premium')}
-        className="flex gap-2"
+        className="grid grid-cols-2 gap-2"
       >
         {['standard', 'premium'].map(type => (
           <motion.div key={type} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <RadioGroupItem
+            <ToggleGroupItem
               value={type}
-              className={`flex-1 py-2 px-4 rounded text-center font-medium focus:ring-2 focus:ring-offset-1 focus:ring-slate-400 ${
+              className={`py-2 px-4 rounded text-center font-medium focus:ring-2 focus:ring-offset-1 focus:ring-slate-400 ${
                 {
                   standard: !premium,
                   premium,
@@ -25,10 +26,10 @@ export function PlanSelector({ premium, onChange }: Props) {
               }`}
             >
               {type.charAt(0).toUpperCase() + type.slice(1)}
-            </RadioGroupItem>
+            </ToggleGroupItem>
           </motion.div>
         ))}
-      </RadioGroup>
+      </ToggleGroup>
     </div>
   )
 }

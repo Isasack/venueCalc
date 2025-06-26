@@ -12,7 +12,7 @@ export function CategorySelector({ selected, onToggle }: Props) {
           <motion.div key={cat.id} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
             <ToggleGroupItem
               value={cat.id}
-              className={`py-2 px-3 rounded text-sm font-medium focus:ring-2 focus:ring-offset-1 focus:ring-slate-400 ${
+              className={`py-2 px-3 rounded text-sm font-medium whitespace-normal break-words focus:ring-2 focus:ring-offset-1 focus:ring-slate-400 ${
                 selected.includes(cat.id)
                   ? 'bg-slate-600 text-white'
                   : 'bg-white text-slate-700 border border-slate-300'
