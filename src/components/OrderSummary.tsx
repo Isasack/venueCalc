@@ -1,8 +1,11 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
+import ProceedButton from './ProceedButton'
 
-type Props = { summary: ReturnType<typeof import('../functions/usePriceCalculator').usePriceCalculator> }
+type Props = {
+  summary: ReturnType<typeof import('../functions/usePriceCalculator').usePriceCalculator>
+}
+
 export function OrderSummary({ summary }: Props) {
   return (
     <motion.div
@@ -16,15 +19,18 @@ export function OrderSummary({ summary }: Props) {
         </CardHeader>
         <CardContent className="space-y-2">
           <div className="flex justify-between">
-            <span>Subtotal</span><span>${summary.subtotal.toFixed(2)}</span>
+            <span>Subtotal (ex-GST)</span>
+            <span>${summary.exGst.toFixed(2)}</span>
           </div>
           <div className="flex justify-between">
-            <span>GST (10%)</span><span>${summary.gst.toFixed(2)}</span>
+            <span>GST (10%)</span>
+            <span>${summary.gst.toFixed(2)}</span>
           </div>
           <div className="flex justify-between font-semibold">
-            <span>Total</span><span>${summary.total.toFixed(2)}</span>
+            <span>Total</span>
+            <span>${summary.total.toFixed(2)}</span>
           </div>
-          <Button className="w-full mt-4">Proceed</Button>
+          <ProceedButton />
         </CardContent>
       </Card>
     </motion.div>
