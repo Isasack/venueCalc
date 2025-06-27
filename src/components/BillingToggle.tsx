@@ -1,6 +1,6 @@
 import { Switch } from '@/components/ui/switch';
 
-type Props = { period: 'monthly'|'quarterly'|'annually'; onChange: (p: 'monthly'|'quarterly'|'annually') => void };
+type Props = { period: 'monthly'|'annually'; onChange: (p: 'monthly'|'annually') => void };
 export function BillingToggle({ period, onChange }: Props) {
   return (
     <div className="flex items-center mb-4">

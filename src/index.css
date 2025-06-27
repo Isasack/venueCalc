@@ -4,7 +4,19 @@
 @custom-variant dark (&:is(.dark *));
 
 html {
-  scroll-behavior: smooth;
+  /* reserve the gutter but hide the thumb */
+  overflow-y: scroll;
+}
+
+/* WebKit */
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: none;
 }
 
 @theme inline {

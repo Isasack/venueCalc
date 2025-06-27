@@ -1,4 +1,3 @@
-import React from 'react'
 import { motion } from 'framer-motion'
 import { Shield, Crown } from 'lucide-react'
 import { OptionButton } from './OptionButton'

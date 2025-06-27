@@ -1,3 +1,4 @@
+// src/functions/usePriceCalculator.ts
 import { useMemo } from 'react'
 import { CITIES, DISTANCES, CAPACITIES } from '../utils/config'
 
@@ -7,7 +8,7 @@ type Inputs = {
   capacity: string
   categories: string[]
   premium: boolean
-  period: 'monthly' | 'quarterly' | 'annually'
+  period: 'monthly' | 'annually'
 }
 
 export function usePriceCalculator({
@@ -25,24 +26,36 @@ export function usePriceCalculator({
     const capW = CAPACITIES.find(c => c.label === capacity)?.weight ?? 0
     const weight = cityW * distW * capW
 
-    // 2) Category pricing per spec
+    // 2) Category pricing (match on the full label)
     let catSum = 0
-    if (categories.includes('social'))                               catSum += 200
-    if (categories.includes('conference') || categories.includes('gala')) catSum += 300
-    if (categories.includes('weddings'))                             catSum += 100
+    if (categories.includes('Private & Corporate Social Events')) {
+      catSum += 200
+    }
+    if (
+      categories.includes('Conferences & Meetings') ||
+      categories.includes('Gala Dinners & Balls')
+    ) {
+      catSum += 300
+    }
+    if (categories.includes('Weddings')) {
+      catSum += 100
+    }
 
     // 3) Premium multiplier
-    if (premium) catSum *= 1.5
+    if (premium) {
+      catSum *= 1.5
+    }
 
     // 4) Base monthly ex-GST
     const monthlyEx = weight * catSum
 
-    // 5) Period multiplier & annual discount
-    let exGst = monthlyEx
-    if (period === 'quarterly') {
-      exGst = monthlyEx * 3
-    } else if (period === 'annually') {
-      exGst = monthlyEx * 12 * 0.85   // 15% off
+    // 5) Select period
+    let exGst: number
+    if (period === 'monthly') {
+      exGst = monthlyEx
+    } else {
+      // annual: 12× with 15% off
+      exGst = monthlyEx * 12 * 0.85
     }
 
     // 6) GST and total
@@ -50,10 +63,10 @@ export function usePriceCalculator({
     const total = exGst + gst
 
     return {
-      weight,     // variable‐weight factor
-      catSum,     // total category cost after premium
-      monthlyEx,  // base monthly ex-GST
-      exGst,      // final ex-GST for selected period
+      weight,
+      catSum,
+      monthlyEx,
+      exGst,
       gst,
       total,
     }

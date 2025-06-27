@@ -16,6 +16,13 @@ const ICON_MAP: Record<string, React.ReactNode> = {
   'Weddings': <Heart size={20} />,
 }
 
+const DESCRIPTION_MAP: Record<string, string> = {
+  'Private & Corporate Social Events': 'Ideal for parties, private functions, and corporate gatherings',
+  'Conferences & Meetings': 'Host business meetings, conferences, and seminars seamlessly',
+  'Gala Dinners & Balls': 'Perfect for formal dinners, balls, and fundraising events',
+  'Weddings': 'Create unforgettable wedding ceremonies and receptions',
+}
+
 export function CategorySelector({ selected, onToggle }: CategorySelectorProps) {
   return (
     <motion.div
@@ -30,7 +37,7 @@ export function CategorySelector({ selected, onToggle }: CategorySelectorProps) 
       </div>
 
       <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 gap-3"
+        className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-3"
         initial="hidden"
         animate="visible"
         variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 } } }}
@@ -46,7 +53,7 @@ export function CategorySelector({ selected, onToggle }: CategorySelectorProps) 
               onClick={() => onToggle(cat.name)}
               icon={ICON_MAP[cat.name]}
               label={cat.name}
-              description={`Professional ${cat.name.toLowerCase()} solutions`}
+              description={DESCRIPTION_MAP[cat.name]}
             />
           </motion.div>
         ))}
